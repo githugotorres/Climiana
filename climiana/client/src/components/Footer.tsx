@@ -79,9 +79,29 @@ export default function Footer() {
           <p className="text-[11px] font-normal text-white/35">
             &copy; {new Date().getFullYear()} Climiana Unipessoal Lda. Todos os direitos reservados.
           </p>
-          <p className="text-[11px] font-normal text-white/35">
-            Sistemas de Climatização e Energias Renováveis
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <Link href="/politica-de-privacidade" className="text-[11px] font-normal text-white/35 hover:text-[#15ABE6] transition-colors duration-200">
+              Política de Privacidade
+            </Link>
+            {/*
+              Link oficial e genérico definido pelo manual da Direção-Geral do Consumidor
+              (Decreto-Lei 156/2005, alterado pelo DL 74/2017): aponta sempre para
+              livroreclamacoes.pt/inicio, é o mesmo link em todos os sites, não é gerado
+              por empresa. Isto não substitui a obrigação separada de a empresa estar
+              efetivamente registada na plataforma — confirmar com o patrão/contabilista.
+            */}
+            <a
+              href="https://www.livroreclamacoes.pt/inicio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-normal text-white/35 hover:text-[#15ABE6] transition-colors duration-200"
+            >
+              Livro de Reclamações Eletrónico
+            </a>
+            <p className="text-[11px] font-normal text-white/35">
+              Sistemas de Climatização e Energias Renováveis
+            </p>
+          </div>
         </div>
       </div>
     </footer>

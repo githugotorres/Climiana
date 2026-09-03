@@ -10,6 +10,7 @@ import Assistencia from "./pages/Assistencia";
 import Sobre from "./pages/Sobre";
 import Contactos from "./pages/Contactos";
 import Orcamento from "./pages/Orcamento";
+import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 
 function Router() {
   return (
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/sobre" component={Sobre} />
       <Route path="/contactos" component={Contactos} />
       <Route path="/orcamento" component={Orcamento} />
+      <Route path="/politica-de-privacidade" component={PoliticaPrivacidade} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

@@ -5,6 +5,7 @@
  */
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import NavbarGlass from "@/components/NavbarGlass";
 import { toast } from "sonner";
@@ -104,6 +105,9 @@ export default function Orcamento() {
   const [form, setForm] = useState<OrcamentoFormState>(initialFormState);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [consentAccepted, setConsentAccepted] = useState(false);
+  // Honeypot: campo invisível para humanos que os bots de spam preenchem automaticamente
+  const [website, setWebsite] = useState("");
 
   const canSubmit = useMemo(() => {
     return (
@@ -117,9 +121,10 @@ export default function Orcamento() {
       form.localizacaoObra.trim() &&
       form.novaOuSubstituicao &&
       form.urgencia &&
-      form.descricao.trim()
+      form.descricao.trim() &&
+      consentAccepted
     );
-  }, [form]);
+  }, [form, consentAccepted]);
 
   const updateField = (key: keyof OrcamentoFormState, value: string) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -127,6 +132,11 @@ export default function Orcamento() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Se o honeypot vier preenchido, é um bot: cancelar sem avisar nem mostrar erro
+    if (website.trim() !== "") {
+      return;
+    }
 
     if (!ORCAMENTO_WEBHOOK_URL) {
       toast.error("Falta configurar VITE_ORCAMENTO_WEBHOOK_URL com o URL do Web App do Apps Script.");
@@ -167,6 +177,8 @@ export default function Orcamento() {
 
       setSubmitted(true);
       setForm(initialFormState);
+      setConsentAccepted(false);
+      setWebsite("");
       toast.success("Pedido enviado com sucesso.");
     } catch {
       toast.error("Não foi possível enviar o pedido. Tente novamente.");
@@ -228,6 +240,25 @@ export default function Orcamento() {
             <form onSubmit={handleSubmit} className="rounded-3xl bg-white border border-gray-100 shadow-lg overflow-hidden">
               <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, #0072C2 0%, #15ABE6 50%, #E20A17 100%)" }} />
               <div className="p-5 sm:p-8 lg:p-10 space-y-8">
+                {/*
+                  Honeypot: campo fora do fluxo visual normal (não display:none), por isso
+                  continua acessível a leitores de ecrã, que veem a label a avisar para o
+                  deixar em branco. Bots que preenchem todos os campos do formulário acabam
+                  por preencher este, e o pedido é então descartado em handleSubmit.
+                */}
+                <div className="sr-only">
+                  <label htmlFor="website">Não preencha este campo</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                  />
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-5">
                   <div>
                     <FieldLabel>Nome Completo</FieldLabel>
@@ -298,6 +329,25 @@ export default function Orcamento() {
                     placeholder="Explique o que precisa, medidas, preferências ou dúvidas..."
                     className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-[14px] text-[#0A2540] placeholder:text-gray-400 shadow-sm outline-none transition-colors focus:border-[#0072C2] focus:ring-2 focus:ring-[#0072C2]/10"
                   />
+                </div>
+
+                <div>
+                  <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={consentAccepted}
+                      onChange={(e) => setConsentAccepted(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 text-[#0072C2] focus:ring-2 focus:ring-[#0072C2]/30 cursor-pointer"
+                    />
+                    <span className="text-[13px] leading-relaxed text-[#4A5568]">
+                      Li e aceito a{" "}
+                      <Link href="/politica-de-privacidade" className="font-semibold text-[#0072C2] hover:underline">
+                        Política de Privacidade
+                      </Link>
+                      .
+                    </span>
+                  </label>
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
