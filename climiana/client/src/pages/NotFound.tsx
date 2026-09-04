@@ -2,8 +2,15 @@ import { Link } from "wouter";
 import { Home } from "lucide-react";
 import NavbarGlass from "@/components/NavbarGlass";
 import Footer from "@/components/Footer";
+import { usePageMeta, useNoIndex } from "@/hooks/usePageMeta";
 
 export default function NotFound() {
+  usePageMeta(
+    "Página não encontrada | Climiana",
+    "A página que procura não existe ou foi movida. Verifique o endereço ou volte à página inicial."
+  );
+  useNoIndex();
+
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F2F7FA" }}>
       <NavbarGlass />

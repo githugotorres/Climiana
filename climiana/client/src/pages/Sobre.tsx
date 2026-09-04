@@ -9,6 +9,8 @@ import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import NavbarGlass from "@/components/NavbarGlass";
+import AnimatedLogoBackground from "@/components/AnimatedLogoBackground";
+import { usePageMeta } from "@/hooks/usePageMeta";
 import { ArrowRight, ShieldCheck, Wrench, Clock, BadgeCheck } from "lucide-react";
 
 const values = [
@@ -37,6 +39,11 @@ const values = [
 export default function Sobre() {
   const pageRef = useRef<HTMLDivElement>(null);
 
+  usePageMeta(
+    "Sobre a Climiana | Parceiro Oficial Daikin em Ponte de Lima",
+    "Empresa especializada em climatização, parceira oficial Daikin, com sede em Ponte de Lima. Instalação, manutenção e assistência técnica certificada."
+  );
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const observer = new IntersectionObserver(
@@ -60,53 +67,7 @@ export default function Sobre() {
 
       {/* === HERO COM LOGO ANIMADO NA ÁGUA === */}
       <section className="relative pt-36 pb-16 overflow-hidden">
-        {/* Fundo com ondas e logo animado */}
-        <div className="absolute inset-0 pointer-events-none select-none">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#F2F7FA] via-[#F2F7FA]/80 to-[#F2F7FA]" />
-
-          {/* Logo gigante animado com efeito de água */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] lg:w-[1000px] lg:h-[1000px] opacity-[0.08]">
-            <svg
-              viewBox="0 0 200 200"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-full h-full animate-float-water"
-              style={{ filter: "url(#waterRipple)" }}
-            >
-              <defs>
-                <filter id="waterRipple">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
-                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
-                </filter>
-                <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#0072C2" />
-                  <stop offset="100%" stopColor="#15ABE6" />
-                </linearGradient>
-                <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#E20A17" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#E20A17" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-
-              <circle cx="100" cy="100" r="96" fill="url(#logoGrad)" stroke="#0072C2" strokeWidth="2" />
-
-              {/* Letras C e A estilizadas (logotipo simplificado) */}
-              <path d="M 50 70 L 50 130 L 70 130 L 70 100 L 90 100 L 90 130 L 110 130 L 110 70 L 90 70 L 90 90 L 70 90 L 70 70 Z" fill="white" opacity="0.95" />
-              <path d="M 120 70 L 120 130 L 160 130 L 160 110 L 140 110 L 140 105 L 160 105 L 160 85 L 140 85 L 140 80 L 160 80 L 160 70 Z" fill="white" opacity="0.95" />
-
-              {/* Detalhe de ar condicionado / ventoinha */}
-              <circle cx="100" cy="100" r="30" fill="none" stroke="white" strokeWidth="4" opacity="0.3" />
-              <circle cx="100" cy="100" r="16" fill="white" opacity="0.2" />
-              <path d="M 100 70 L 100 50 M 100 130 L 100 150 M 70 100 L 50 100 M 130 100 L 150 100" stroke="white" strokeWidth="3" strokeLinecap="round" opacity="0.25" />
-            </svg>
-          </div>
-
-          {/* Ondas decorativas adicionais */}
-          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#F2F7FA] to-transparent" />
-          <svg className="absolute bottom-0 left-0 w-full h-20 text-[#F2F7FA]" viewBox="0 0 1440 120" preserveAspectRatio="none" style={{ fill: "currentColor" }}>
-            <path d="M0,40 C360,120 720,0 1080,60 C1260,90 1380,60 1440,40 L1440,120 L0,120 Z" />
-          </svg>
-        </div>
+        <AnimatedLogoBackground size="lg" />
 
         {/* Conteúdo textual sobreposto */}
         <div className="relative z-10 max-w-3xl mx-auto px-5 lg:px-8 text-center">
@@ -218,36 +179,8 @@ export default function Sobre() {
 
       <Footer />
 
-      {/* CSS adicional para animação do logo na água */}
+      {/* CSS adicional (não relacionado com o fundo animado, que agora vive em AnimatedLogoBackground) */}
       <style>{`
-        @keyframes float-water {
-          0% {
-            transform: translate(-50%, -50%) scale(1) rotate(0deg);
-            filter: drop-shadow(0 10px 30px rgba(0,114,194,0.2));
-          }
-          25% {
-            transform: translate(-48%, -53%) scale(1.02) rotate(1deg);
-            filter: drop-shadow(0 20px 50px rgba(0,114,194,0.3));
-          }
-          50% {
-            transform: translate(-52%, -48%) scale(0.98) rotate(-1deg);
-            filter: drop-shadow(0 15px 40px rgba(0,114,194,0.2));
-          }
-          75% {
-            transform: translate(-47%, -52%) scale(1.01) rotate(0.5deg);
-            filter: drop-shadow(0 25px 60px rgba(0,114,194,0.3));
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(1) rotate(0deg);
-            filter: drop-shadow(0 10px 30px rgba(0,114,194,0.2));
-          }
-        }
-
-        .animate-float-water {
-          animation: float-water 8s ease-in-out infinite;
-          transform-origin: center center;
-        }
-
         /* Ondas SVG animadas */
         @keyframes waveMove {
           0% { transform: translateX(0); }

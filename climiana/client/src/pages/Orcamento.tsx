@@ -8,6 +8,7 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import NavbarGlass from "@/components/NavbarGlass";
+import { usePageMeta } from "@/hooks/usePageMeta";
 import { toast } from "sonner";
 
 const ORCAMENTO_WEBHOOK_URL = import.meta.env.VITE_ORCAMENTO_WEBHOOK_URL as string | undefined;
@@ -101,6 +102,11 @@ function RadioGroup({
 }
 
 export default function Orcamento() {
+  usePageMeta(
+    "Pedir Orçamento Gratuito de Climatização | Climiana",
+    "Envie o seu pedido e a nossa equipa entra em contacto consigo no prazo máximo de 24 horas úteis."
+  );
+
   const pageRef = useRef<HTMLDivElement>(null);
   const [form, setForm] = useState<OrcamentoFormState>(initialFormState);
   const [submitting, setSubmitting] = useState(false);

@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import NavbarGlass from "@/components/NavbarGlass";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const lastUpdated = new Date().toLocaleDateString("pt-PT", {
   day: "numeric",
@@ -37,6 +38,11 @@ function Section({ number, title, children }: { number: string; title: string; c
 }
 
 export default function PoliticaPrivacidade() {
+  usePageMeta(
+    "Política de Privacidade | Climiana",
+    "Política de privacidade da Climiana: que dados recolhemos, para que servem e quais são os seus direitos."
+  );
+
   const pageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

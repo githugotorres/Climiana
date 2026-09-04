@@ -8,6 +8,7 @@
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import NavbarGlass from "@/components/NavbarGlass";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const DAIKIN_URL = "https://www.daikin.pt/pt_pt/particular/campanhas/a-primavera-voltou-a-escolha-pela-daikin-tambem.html";
 
@@ -77,6 +78,11 @@ function Particles() {
 }
 
 export default function Home() {
+  usePageMeta(
+    "Climiana, Sistemas de Climatização e Energias Renováveis",
+    "Climiana - Especialistas em climatização, ar condicionado, ventilação e energias renováveis em Ponte de Lima. Conforto térmico e eficiência energética de excelência."
+  );
+
   return (
     <div className="h-dvh w-full overflow-x-hidden overflow-y-auto relative">
       {/* Full-screen background image */}
