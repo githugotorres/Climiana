@@ -13,14 +13,14 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Link } from "wouter";
 
-const ADDRESS = "Rua da Vila Coroneliana 2722, Correlhã, Ponte de Lima, Viana do Castelo";
+const ADDRESS = "Rua da Vila Corneliana 2722, Correlhã, Ponte de Lima, Viana do Castelo";
 const MAPS_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS)}`;
 
 const contactInfo = [
   {
     icon: MapPin,
     title: "Morada",
-    lines: ["Rua da Vila Coroneliana 2722", "Correlhã, Ponte de Lima", "Viana do Castelo"],
+    lines: ["Rua da Vila Corneliana 2722", "Correlhã, Ponte de Lima", "Viana do Castelo"],
     href: MAPS_DIRECTIONS_URL,
   },
   {

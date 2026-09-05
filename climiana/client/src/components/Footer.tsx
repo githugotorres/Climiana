@@ -7,7 +7,7 @@
 import { Link } from "wouter";
 import { Phone, Mail, MapPin } from "lucide-react";
 
-const MAPS_DIRECTIONS_URL = "https://www.google.com/maps/dir/?api=1&destination=Rua%20da%20Vila%20Coroneliana%202722%2C%20Correlh%C3%A3%2C%20Ponte%20de%20Lima%2C%20Viana%20do%20Castelo";
+const MAPS_DIRECTIONS_URL = "https://www.google.com/maps/dir/?api=1&destination=Rua%20da%20Vila%20Corneliana%202722%2C%20Correlh%C3%A3%2C%20Ponte%20de%20Lima%2C%20Viana%20do%20Castelo";
 
 export default function Footer() {
   return (
@@ -56,7 +56,7 @@ export default function Footer() {
             <ul className="space-y-3.5">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-3.5 h-3.5 text-[#15ABE6] mt-0.5 shrink-0" />
-                <a href={MAPS_DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className="text-[13px] font-normal text-white/55 hover:text-[#15ABE6] transition-colors duration-200">Rua da Vila Coroneliana 2722, Correlhã, Ponte de Lima, Viana do Castelo</a>
+                <a href={MAPS_DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className="text-[13px] font-normal text-white/55 hover:text-[#15ABE6] transition-colors duration-200">Rua da Vila Corneliana 2722, Correlhã, Ponte de Lima, Viana do Castelo</a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-3.5 h-3.5 text-[#15ABE6] shrink-0" />
