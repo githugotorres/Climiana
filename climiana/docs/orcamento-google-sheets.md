@@ -33,6 +33,7 @@ function doPost(e) {
         "Nova ou substituição",
         "Urgência",
         "Descrição",
+        "Origem",
       ]);
     }
 
@@ -49,6 +50,7 @@ function doPost(e) {
       payload.novaOuSubstituicao || "",
       payload.urgencia || "",
       payload.descricao || "",
+      payload.origem || "",
     ]);
 
     try {
@@ -86,6 +88,7 @@ function enviarNotificacaoEmail(payload) {
     "Nova ou substituição: " + (payload.novaOuSubstituicao || "-"),
     "Urgência: " + (payload.urgencia || "-"),
     "Descrição: " + (payload.descricao || "-"),
+    "Origem: " + (payload.origem || "-"),
     "",
     "Este pedido também foi guardado na Google Sheet.",
   ].join("\n");
@@ -110,7 +113,7 @@ function testarAutorizacaoEmail() {
 
 Cria uma folha chamada `Orcamentos` com estas colunas:
 
-`Data | Nome Completo | Email | Telemóvel | Morada | Tipo de serviço | Tipo de espaço | Tem projeto? | Localização da obra | Nova ou substituição | Urgência | Descrição`
+`Data | Nome Completo | Email | Telemóvel | Morada | Tipo de serviço | Tipo de espaço | Tem projeto? | Localização da obra | Nova ou substituição | Urgência | Descrição | Origem`
 
 ## 3. Publicar o script
 
@@ -133,7 +136,9 @@ Depois reinicia o `pnpm dev`.
 
 ## 5. Nota importante
 
-O formulário do site envia o pedido através de um formulário HTML normal para esse URL. Isso costuma ser mais fiável do que `fetch` para o Google Apps Script.
+O formulário do site envia o pedido com `fetch` em formato form-urlencoded e lê a resposta do Apps Script (`{ ok: true }`). Só mostra "Pedido enviado com sucesso" e só regista o evento `Lead` no Píxel da Meta quando a resposta é `ok: true`.
+
+A coluna **Origem** diz de onde veio o pedido: o valor de `?origem=` no link do anúncio (ex.: `anuncio-altherma4`) ou `direto` se a pessoa chegou ao site sem link de anúncio.
 
 Se mesmo assim não aparecer na sheet, confirma estes 3 pontos:
 

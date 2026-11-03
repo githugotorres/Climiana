@@ -5,6 +5,7 @@
  */
 
 import { Link } from "wouter";
+import { openCookieSettings } from "@/lib/consent";
 import { Phone, Mail, MapPin } from "lucide-react";
 
 const MAPS_DIRECTIONS_URL = "https://www.google.com/maps/dir/?api=1&destination=Rua%20da%20Vila%20Corneliana%202722%2C%20Correlh%C3%A3%2C%20Ponte%20de%20Lima%2C%20Viana%20do%20Castelo";
@@ -83,6 +84,13 @@ export default function Footer() {
             <Link href="/politica-de-privacidade" className="text-[11px] font-normal text-white/35 hover:text-[#15ABE6] transition-colors duration-200">
               Política de Privacidade
             </Link>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="text-[11px] font-normal text-white/35 hover:text-[#15ABE6] transition-colors duration-200"
+            >
+              Definições de cookies
+            </button>
             {/*
               Link oficial e genérico definido pelo manual da Direção-Geral do Consumidor
               (Decreto-Lei 156/2005, alterado pelo DL 74/2017): aponta sempre para

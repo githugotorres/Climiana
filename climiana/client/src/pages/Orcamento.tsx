@@ -10,6 +10,8 @@ import Footer from "@/components/Footer";
 import NavbarGlass from "@/components/NavbarGlass";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { toast } from "sonner";
+import { trackLead } from "@/lib/metaPixel";
+import { getOrigem } from "@/lib/origem";
 
 const ORCAMENTO_WEBHOOK_URL = import.meta.env.VITE_ORCAMENTO_WEBHOOK_URL as string | undefined;
 
@@ -42,6 +44,7 @@ const initialFormState: OrcamentoFormState = {
 };
 
 const serviceOptions = [
+  "Revisão / Manutenção",
   "Ar Condicionado",
   "Climatização",
   "Ventilação",
@@ -118,15 +121,9 @@ export default function Orcamento() {
   const canSubmit = useMemo(() => {
     return (
       form.nomeCompleto.trim() &&
-      form.email.trim() &&
       form.telemovel.trim() &&
-      form.morada.trim() &&
       form.tipoServico &&
-      form.tipoEspaco &&
-      form.temProjetoInstalacao &&
       form.localizacaoObra.trim() &&
-      form.novaOuSubstituicao &&
-      form.urgencia &&
       form.descricao.trim() &&
       consentAccepted
     );
@@ -152,34 +149,19 @@ export default function Orcamento() {
     setSubmitting(true);
 
     try {
-      const hiddenIframeId = "orcamento-submit-target";
-      let hiddenIframe = document.getElementById(hiddenIframeId) as HTMLIFrameElement | null;
+      // Envio com fetch para conseguirmos LER a resposta do Apps Script
+      // ({ ok: true } ou { ok: false }) e só mostrar sucesso quando o pedido
+      // ficou mesmo guardado na folha. Formato form-urlencoded = pedido "simples",
+      // sem preflight CORS, que o Apps Script aceita.
+      const body = new URLSearchParams({ ...form, origem: getOrigem() });
+      const response = await fetch(ORCAMENTO_WEBHOOK_URL, { method: "POST", body });
+      const result = (await response.json().catch(() => null)) as { ok?: boolean } | null;
 
-      if (!hiddenIframe) {
-        hiddenIframe = document.createElement("iframe");
-        hiddenIframe.id = hiddenIframeId;
-        hiddenIframe.name = hiddenIframeId;
-        hiddenIframe.title = "Orcamento submit target";
-        hiddenIframe.style.display = "none";
-        document.body.appendChild(hiddenIframe);
+      if (!response.ok || !result?.ok) {
+        throw new Error("Resposta inválida do servidor");
       }
 
-      const formElement = document.createElement("form");
-      formElement.method = "POST";
-      formElement.action = ORCAMENTO_WEBHOOK_URL;
-      formElement.target = hiddenIframeId;
-
-      Object.entries(form).forEach(([key, value]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value;
-        formElement.appendChild(input);
-      });
-
-      document.body.appendChild(formElement);
-      formElement.submit();
-      formElement.remove();
+      trackLead({ content_name: form.tipoServico || "Orçamento" });
 
       setSubmitted(true);
       setForm(initialFormState);
@@ -187,7 +169,7 @@ export default function Orcamento() {
       setWebsite("");
       toast.success("Pedido enviado com sucesso.");
     } catch {
-      toast.error("Não foi possível enviar o pedido. Tente novamente.");
+      toast.error("Não foi possível enviar o pedido. Tente novamente ou ligue-nos para o 258 753 464.");
     } finally {
       setSubmitting(false);
     }
@@ -265,77 +247,85 @@ export default function Orcamento() {
                   />
                 </div>
 
+                <p className="text-[13px] text-[#4A5568]">
+                  Prefere falar diretamente? Ligue{" "}
+                  <a href="tel:914781470" className="font-semibold text-[#0072C2] hover:underline">914 781 470</a>.
+                </p>
+
                 <div className="grid md:grid-cols-2 gap-5">
                   <div>
-                    <FieldLabel>Nome Completo</FieldLabel>
-                    <InputField required value={form.nomeCompleto} onChange={(e) => updateField("nomeCompleto", e.target.value)} placeholder="O seu nome completo" />
-                  </div>
-                  <div>
-                    <FieldLabel>Email</FieldLabel>
-                    <InputField required type="email" value={form.email} onChange={(e) => updateField("email", e.target.value)} placeholder="exemplo@email.com" />
+                    <FieldLabel>Nome</FieldLabel>
+                    <InputField required autoComplete="name" value={form.nomeCompleto} onChange={(e) => updateField("nomeCompleto", e.target.value)} placeholder="O seu nome" />
                   </div>
                   <div>
                     <FieldLabel>Número de telemóvel</FieldLabel>
-                    <InputField required type="tel" value={form.telemovel} onChange={(e) => updateField("telemovel", e.target.value)} placeholder="914 781 470" />
+                    <InputField required type="tel" autoComplete="tel" value={form.telemovel} onChange={(e) => updateField("telemovel", e.target.value)} placeholder="912 345 678" />
                   </div>
                   <div>
-                    <FieldLabel>Morada</FieldLabel>
-                    <InputField required value={form.morada} onChange={(e) => updateField("morada", e.target.value)} placeholder="Rua, número, localidade" />
-                  </div>
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-5">
-                  <div>
-                    <FieldLabel>Tipo de serviço pretendido</FieldLabel>
+                    <FieldLabel>O que precisa?</FieldLabel>
                     <SelectField required value={form.tipoServico} onChange={(e) => updateField("tipoServico", e.target.value)}>
                       <option value="">Selecionar</option>
                       {serviceOptions.map((option) => <option key={option} value={option}>{option}</option>)}
                     </SelectField>
                   </div>
                   <div>
-                    <FieldLabel>Tipo de espaço</FieldLabel>
-                    <SelectField required value={form.tipoEspaco} onChange={(e) => updateField("tipoEspaco", e.target.value)}>
-                      <option value="">Selecionar</option>
-                      {spaceOptions.map((option) => <option key={option} value={option}>{option}</option>)}
-                    </SelectField>
+                    <FieldLabel>Localidade (Concelho/Freguesia)</FieldLabel>
+                    <InputField required value={form.localizacaoObra} onChange={(e) => updateField("localizacaoObra", e.target.value)} placeholder="Ex.: Ponte de Lima / Correlhã" />
                   </div>
                 </div>
 
                 <div>
-                  <FieldLabel>Tem projeto de instalação?</FieldLabel>
-                  <RadioGroup name="temProjetoInstalacao" value={form.temProjetoInstalacao} options={yesNoOptions} onChange={(value) => updateField("temProjetoInstalacao", value)} />
-                </div>
-
-                <div>
-                  <FieldLabel>Localização da obra (Concelho/Freguesia)</FieldLabel>
-                  <InputField required value={form.localizacaoObra} onChange={(e) => updateField("localizacaoObra", e.target.value)} placeholder="Ex.: Ponte de Lima / Correlhã" />
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-5">
-                  <div>
-                    <FieldLabel>É uma instalação nova ou substituição de equipamento existente?</FieldLabel>
-                    <RadioGroup name="novaOuSubstituicao" value={form.novaOuSubstituicao} options={installationOptions} onChange={(value) => updateField("novaOuSubstituicao", value)} />
-                  </div>
-                  <div>
-                    <FieldLabel>Qual a urgência do serviço?</FieldLabel>
-                    <SelectField required value={form.urgencia} onChange={(e) => updateField("urgencia", e.target.value)}>
-                      <option value="">Selecionar</option>
-                      {urgencyOptions.map((option) => <option key={option} value={option}>{option}</option>)}
-                    </SelectField>
-                  </div>
-                </div>
-
-                <div>
-                  <FieldLabel>Descreva brevemente o que pretende ou alguma informação adicional</FieldLabel>
+                  <FieldLabel>Conte-nos em poucas palavras</FieldLabel>
                   <textarea
                     required
-                    rows={6}
+                    rows={4}
                     value={form.descricao}
                     onChange={(e) => updateField("descricao", e.target.value)}
-                    placeholder="Explique o que precisa, medidas, preferências ou dúvidas..."
+                    placeholder="Ex.: revisão de 2 máquinas de ar condicionado antes do inverno"
                     className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-[14px] text-[#0A2540] placeholder:text-gray-400 shadow-sm outline-none transition-colors focus:border-[#0072C2] focus:ring-2 focus:ring-[#0072C2]/10"
                   />
                 </div>
+
+                <details className="group rounded-2xl border border-gray-200 bg-[#F2F7FA]/60">
+                  <summary className="cursor-pointer list-none px-5 py-4 text-[13px] font-semibold text-[#0072C2] select-none">
+                    <span className="group-open:hidden">+ Adicionar mais detalhes (opcional)</span>
+                    <span className="hidden group-open:inline">Mais detalhes (opcional)</span>
+                  </summary>
+                  <div className="px-5 pb-5 space-y-5">
+                    <div className="grid md:grid-cols-2 gap-5">
+                      <div>
+                        <FieldLabel>Email</FieldLabel>
+                        <InputField type="email" autoComplete="email" value={form.email} onChange={(e) => updateField("email", e.target.value)} placeholder="exemplo@email.com" />
+                      </div>
+                      <div>
+                        <FieldLabel>Morada</FieldLabel>
+                        <InputField autoComplete="street-address" value={form.morada} onChange={(e) => updateField("morada", e.target.value)} placeholder="Rua, número, localidade" />
+                      </div>
+                      <div>
+                        <FieldLabel>Tipo de espaço</FieldLabel>
+                        <SelectField value={form.tipoEspaco} onChange={(e) => updateField("tipoEspaco", e.target.value)}>
+                          <option value="">Selecionar</option>
+                          {spaceOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+                        </SelectField>
+                      </div>
+                      <div>
+                        <FieldLabel>Qual a urgência?</FieldLabel>
+                        <SelectField value={form.urgencia} onChange={(e) => updateField("urgencia", e.target.value)}>
+                          <option value="">Selecionar</option>
+                          {urgencyOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+                        </SelectField>
+                      </div>
+                    </div>
+                    <div>
+                      <FieldLabel>Tem projeto de instalação?</FieldLabel>
+                      <RadioGroup name="temProjetoInstalacao" value={form.temProjetoInstalacao} options={yesNoOptions} onChange={(value) => updateField("temProjetoInstalacao", value)} />
+                    </div>
+                    <div>
+                      <FieldLabel>É uma instalação nova ou substituição de equipamento existente?</FieldLabel>
+                      <RadioGroup name="novaOuSubstituicao" value={form.novaOuSubstituicao} options={installationOptions} onChange={(value) => updateField("novaOuSubstituicao", value)} />
+                    </div>
+                  </div>
+                </details>
 
                 <div>
                   <label className="flex items-start gap-2.5 cursor-pointer select-none">

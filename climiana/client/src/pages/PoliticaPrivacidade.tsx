@@ -10,11 +10,8 @@ import Footer from "@/components/Footer";
 import NavbarGlass from "@/components/NavbarGlass";
 import { usePageMeta } from "@/hooks/usePageMeta";
 
-const lastUpdated = new Date().toLocaleDateString("pt-PT", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-});
+// Atualizar à mão sempre que o texto da política mudar.
+const lastUpdated = "3 de novembro de 2026";
 
 function Placeholder({ children }: { children: React.ReactNode }) {
   return (
@@ -141,7 +138,11 @@ export default function PoliticaPrivacidade() {
                 cálculo Google (Google Sheets), através do Google Apps Script, utilizada internamente
                 como ferramenta de gestão de pedidos de orçamento.
               </p>
-              <p>Não vendemos nem partilhamos os seus dados com terceiros para fins de marketing.</p>
+              <p>
+                Não vendemos os seus dados nem partilhamos com terceiros os dados que escreve no
+                formulário. Se aceitar os cookies, a Meta recebe informação técnica sobre a visita
+                para medir os resultados dos anúncios, como explicado na secção 8.
+              </p>
             </Section>
 
             <Section number="6" title="Prazo de Conservação">
@@ -177,13 +178,38 @@ export default function PoliticaPrivacidade() {
 
             <Section number="8" title="Cookies">
               <p>
-                À data desta versão, este site não utiliza cookies de rastreio, de análise de
-                tráfego (analytics) nem de publicidade.
+                Este site usa o Píxel da Meta (Meta Platforms Ireland Limited), uma ferramenta que
+                coloca cookies no seu navegador para medir os resultados dos anúncios da Climiana no
+                Facebook e no Instagram, por exemplo, quantas pessoas chegaram ao site através de um
+                anúncio e quantas enviaram um pedido de orçamento.
               </p>
               <p>
-                Caso isto venha a mudar no futuro — por exemplo, com a ativação de ferramentas de
-                analytics — esta política, e a eventual necessidade de um aviso de cookies, serão
-                revistas em conformidade.
+                O Píxel da Meta só é ativado se clicar em "Aceitar" no aviso de cookies. Se clicar em
+                "Recusar", nenhum cookie de publicidade ou de medição é colocado e o site funciona
+                normalmente. Pode mudar a sua escolha a qualquer momento através da ligação
+                "Definições de cookies", no rodapé de todas as páginas.
+              </p>
+              <p>
+                Quando aceita, a Meta recebe informação técnica sobre a sua visita (como as páginas
+                vistas, o envio do formulário de orçamento, o endereço IP e dados do navegador). Os
+                dados que escreve no formulário (nome, contactos, morada e descrição do pedido) não
+                são enviados à Meta. O tratamento feito pela Meta está descrito na Política de
+                Privacidade da Meta, em{" "}
+                <a
+                  href="https://www.facebook.com/privacy/policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold hover:underline"
+                  style={{ color: "#0072C2" }}
+                >
+                  facebook.com/privacy/policy
+                </a>
+                .
+              </p>
+              <p>
+                O site guarda também no seu navegador a escolha que fez no aviso de cookies e, durante
+                a visita, a indicação do anúncio pelo qual chegou, para sabermos que campanhas
+                funcionam. Estes registos não identificam a pessoa e não são partilhados com terceiros.
               </p>
             </Section>
 
