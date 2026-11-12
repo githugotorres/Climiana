@@ -107,7 +107,7 @@ function RadioGroup({
 export default function Orcamento() {
   usePageMeta(
     "Pedir Orçamento Gratuito de Climatização | Climiana",
-    "Envie o seu pedido e a nossa equipa entra em contacto consigo no prazo máximo de 24 horas úteis."
+    "Envie o seu pedido e a nossa equipa entra em contacto consigo no prazo máximo de 48 horas úteis."
   );
 
   const pageRef = useRef<HTMLDivElement>(null);
@@ -121,6 +121,7 @@ export default function Orcamento() {
   const canSubmit = useMemo(() => {
     return (
       form.nomeCompleto.trim() &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()) &&
       form.telemovel.trim() &&
       form.tipoServico &&
       form.localizacaoObra.trim() &&
@@ -208,7 +209,7 @@ export default function Orcamento() {
             Preencha o formulário
           </h1>
           <p className="reveal text-base lg:text-lg font-normal leading-relaxed max-w-2xl mx-auto" style={{ color: "#4A5568", transitionDelay: "200ms" }}>
-            Envie o seu pedido e a nossa equipa entra em contacto consigo no prazo máximo de 24 horas úteis.
+            Envie o seu pedido e a nossa equipa entra em contacto consigo no prazo máximo de 48 horas úteis.
           </p>
         </div>
       </section>
@@ -258,6 +259,10 @@ export default function Orcamento() {
                     <InputField required autoComplete="name" value={form.nomeCompleto} onChange={(e) => updateField("nomeCompleto", e.target.value)} placeholder="O seu nome" />
                   </div>
                   <div>
+                    <FieldLabel>Email</FieldLabel>
+                    <InputField required type="email" autoComplete="email" value={form.email} onChange={(e) => updateField("email", e.target.value)} placeholder="exemplo@email.com" />
+                  </div>
+                  <div>
                     <FieldLabel>Número de telemóvel</FieldLabel>
                     <InputField required type="tel" autoComplete="tel" value={form.telemovel} onChange={(e) => updateField("telemovel", e.target.value)} placeholder="912 345 678" />
                   </div>
@@ -268,7 +273,7 @@ export default function Orcamento() {
                       {serviceOptions.map((option) => <option key={option} value={option}>{option}</option>)}
                     </SelectField>
                   </div>
-                  <div>
+                  <div className="md:col-span-2">
                     <FieldLabel>Localidade (Concelho/Freguesia)</FieldLabel>
                     <InputField required value={form.localizacaoObra} onChange={(e) => updateField("localizacaoObra", e.target.value)} placeholder="Ex.: Ponte de Lima / Correlhã" />
                   </div>
@@ -293,11 +298,7 @@ export default function Orcamento() {
                   </summary>
                   <div className="px-5 pb-5 space-y-5">
                     <div className="grid md:grid-cols-2 gap-5">
-                      <div>
-                        <FieldLabel>Email</FieldLabel>
-                        <InputField type="email" autoComplete="email" value={form.email} onChange={(e) => updateField("email", e.target.value)} placeholder="exemplo@email.com" />
-                      </div>
-                      <div>
+                      <div className="md:col-span-2">
                         <FieldLabel>Morada</FieldLabel>
                         <InputField autoComplete="street-address" value={form.morada} onChange={(e) => updateField("morada", e.target.value)} placeholder="Rua, número, localidade" />
                       </div>

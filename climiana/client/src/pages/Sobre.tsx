@@ -152,7 +152,7 @@ export default function Sobre() {
                 <p className="text-[13px] font-normal text-white/60">Clientes Satisfeitos</p>
               </div>
               <div>
-                <p className="text-3xl lg:text-4xl font-extrabold text-white mb-1">24h</p>
+                <p className="text-3xl lg:text-4xl font-extrabold text-white mb-1">48h</p>
                 <p className="text-[13px] font-normal text-white/60">Tempo de Resposta</p>
               </div>
             </div>
