@@ -1,0 +1,30 @@
+GUIÃO DA VOZ · MOTION ALTHERMA 4 · VERSÃO 2 (24 s)
+O vídeo é rápido: a voz é curta e entra só onde está indicado. Entre 17,5 e 20 s não há voz (é a sequência de números com batidas).
+
+[0,0 – 2,9]   Ainda aquece a casa com uma caldeira antiga?
+[3,0 – 4,0]   Há melhor.
+[4,6 – 7,8]   Conheça a Daikin Altherma 4.
+[8,0 – 9,9]   Vai buscar calor ao ar.
+[10,2 – 12,4] E pode manter os radiadores que já tem.
+[12,6 – 14,9] Água até setenta e cinco graus, mesmo com quinze negativos lá fora.
+[15,4 – 17,3] (quase a sussurrar) E quase não se ouve.
+[17,5 – 20,0] — sem voz —
+[20,4 – 23,5] Climiana, parceiro oficial Daikin. Peça o seu orçamento grátis.
+
+
+TEXTO PARA A FERRAMENTA DE VOZ (gerar frase a frase, para ser mais fácil encaixar)
+1. Ainda aquece a casa com uma caldeira antiga?
+2. Há melhor.
+3. Conheça a Daikin Altherma 4.
+4. Vai buscar calor ao ar.
+5. E pode manter os radiadores que já tem.
+6. Água até setenta e cinco graus, mesmo com quinze negativos lá fora.
+7. E quase não se ouve.
+8. Climiana, parceiro oficial Daikin. Peça o seu orçamento grátis.
+
+
+ÁUDIO QUE VAI JUNTO
+- climiana-altherma4-motion-v2.mp4 já tem música e efeitos sonoros.
+- musica.wav e efeitos.wav: as duas pistas em separado, para baixares a música quando a voz entrar.
+  No CapCut: tira o som ao vídeo, importa as duas pistas, música a ~40% e efeitos a ~80% por baixo da voz.
+- A música e os efeitos foram gerados por código, por isso não há problemas de direitos de autor.

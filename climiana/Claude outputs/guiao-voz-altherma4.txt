@@ -1,0 +1,36 @@
+GUIÃO DA VOZ · MOTION ALTHERMA 4 (25 segundos, 9:16)
+Cada bloco tem de caber no tempo indicado. Ritmo calmo e confiante, sem tom de vendedor.
+
+[0,0 – 3,4]   Ainda aquece a casa com uma caldeira antiga?
+
+[3,4 – 8,4]   Conheça a Daikin Altherma 4. Vai buscar calor ao ar para aquecer a casa e a água.
+
+[8,4 – 12,4]  Pode substituir a caldeira e manter os radiadores que já tem.
+
+[12,4 – 16,6] Água até setenta e cinco graus, mesmo com quinze graus negativos lá fora.
+
+[16,6 – 20,0] E é silenciosa: vinte e oito decibéis, a três metros.
+
+[20,0 – 25,0] A Climiana instala, como parceiro oficial Daikin. Peça o seu orçamento grátis.
+
+
+TEXTO PARA COLAR NA FERRAMENTA DE VOZ (tudo seguido)
+
+Ainda aquece a casa com uma caldeira antiga? Conheça a Daikin Altherma 4. Vai buscar calor ao ar para aquecer a casa e a água. Pode substituir a caldeira e manter os radiadores que já tem. Água até setenta e cinco graus, mesmo com quinze graus negativos lá fora. E é silenciosa: vinte e oito decibéis, a três metros. A Climiana instala, como parceiro oficial Daikin. Peça o seu orçamento grátis.
+
+(Os números estão escritos por extenso de propósito: as vozes de IA leem "75 °C" e "28 dBA" de forma estranha.)
+
+
+COMO JUNTAR NO CAPCUT
+
+1. Importar climiana-altherma4-motion.mp4.
+2. Importar o áudio da voz.
+3. Cortar o áudio em 6 blocos e encostar cada um ao início da sua cena (tempos acima).
+4. Música de fundo da biblioteca do CapCut, volume a 10–15%, para não tapar a voz.
+5. Exportar em 1080x1920, 30 fps.
+
+
+FACTOS (todos do folheto oficial da Daikin Portugal sobre a Altherma 4)
+- Água até 75 °C com -15 °C exteriores
+- 28 dBA a 3 metros
+- Pode substituir a caldeira mantendo os radiadores

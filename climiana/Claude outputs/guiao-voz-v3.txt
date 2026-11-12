@@ -1,0 +1,26 @@
+GUIÃO DA VOZ · MOTION ALTHERMA 4 · VERSÃO 3 (31 s, ritmo calmo)
+Tom: calmo, próximo, sem pressa. Cada frase entra no início do tempo indicado.
+
+[0,5 – 3,8]   Ainda aquece a casa com uma caldeira antiga?
+[5,3 – 6,8]   Há uma forma melhor.
+[8,0 – 11,5]  Conheça a Daikin Altherma 4.
+[12,5 – 15,3] Vai buscar calor ao ar exterior, para aquecer a casa e a água.
+[16,0 – 18,8] E pode manter os radiadores que já tem.
+[19,8 – 22,8] Água quente até setenta e cinco graus, mesmo com quinze negativos lá fora.
+[23,6 – 25,8] E quase não se ouve.
+[27,0 – 30,5] Climiana, parceiro oficial Daikin. Peça o seu orçamento grátis.
+
+TEXTO PARA A FERRAMENTA DE VOZ (gerar frase a frase)
+1. Ainda aquece a casa com uma caldeira antiga?
+2. Há uma forma melhor.
+3. Conheça a Daikin Altherma 4.
+4. Vai buscar calor ao ar exterior, para aquecer a casa e a água.
+5. E pode manter os radiadores que já tem.
+6. Água quente até setenta e cinco graus, mesmo com quinze negativos lá fora.
+7. E quase não se ouve.
+8. Climiana, parceiro oficial Daikin. Peça o seu orçamento grátis.
+
+ÁUDIO
+- O vídeo já traz música calma (piano e ambiente, sem bateria) e efeitos suaves.
+- musica.wav e efeitos.wav vão em separado: quando juntares a voz no CapCut, tira o som ao vídeo e põe a música a ~35% por baixo da voz.
+- Música e efeitos gerados por código: sem direitos de autor.
